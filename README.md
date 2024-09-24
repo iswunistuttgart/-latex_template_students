@@ -72,4 +72,5 @@ Below is a list of the packages we need to load anyhow.
 | `biblatex`                                                      | bibliography                            |
 | `graphicx`                                                      | loading logo image for the titlepage    |
 
-
+### Frequently asked questions
+- How do I change the document's language to german? uncomment `\usepackage[english,ngerman]{babel}` and comment out `%\usepackage[ngerman, english]{babel}` in `settings.tex`
