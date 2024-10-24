@@ -150,6 +150,10 @@
 \def\iswt@thesisType{\texttt{type}-Option invalid}
 \def\iswt@aimedDegree{}
 
+\ifthenelse{\equal{\iswt@type}{generic}}{
+	\def\iswt@thesisType{\IfLangGerman{}{}}
+	\def\iswt@aimedDegree{B.\,Sc.}
+}{}
 \ifthenelse{\equal{\iswt@type}{BA}}{
 	\def\iswt@thesisType{\IfLangGerman{Bachelorarbeit}{Bachelor's Thesis}}
 	\def\iswt@aimedDegree{B.\,Sc.}

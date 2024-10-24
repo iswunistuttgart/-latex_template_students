@@ -19,6 +19,7 @@
 # #+LATEX_HEADER:     type=FA
 # #+LATEX_HEADER:     type=SA
 # #+LATEX_HEADER:     type=bachelorproject
+# #+LATEX_HEADER:     type=generic % for documents without title
 #+LATEX_HEADER: ]{iswthesis}
 ** Language :ignore:
 # #+LATEX_HEADER: \usepackage[english, ngerman]{babel}
