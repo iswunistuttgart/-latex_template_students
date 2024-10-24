@@ -145,6 +145,10 @@
 # Define orgmode as language for listings
 #+LATEX_HEADER: \lstdefinelanguage{org}{keywords={BEGIN,END,CAPTION,NAME,src,results},morecomment=[l]{\#},morestring=[b]"}
 
+# Define bibtex as language for listings
+#+LATEX_HEADER: \lstdefinelanguage{bibtex}{keywords={@article,@book,@inproceedings,@misc,@phdthesis,@mastersthesis,@techreport,@unpublished},sensitive=false,comment=[l][\itshape]{@comment},morestring=[b]"}
+#+LATEX_HEADER: \lstset{language=bibtex,basicstyle=\ttfamily,keywordstyle=\color{blue},commentstyle=\color{green},stringstyle=\color{red}}
+
 # Weird warning about \lstlistoflistings, which is however not used, disable it:
 #+LATEX_HEADER: \providecommand{\lstlistoflistings}{}
 
