@@ -1,0 +1,622 @@
+% Created 2024-10-24 Thu 13:09
+% Intended LaTeX compiler: xelatex
+\documentclass[a4paper,oneside,toc=bibliography,toc=listof]{scrbook}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb}
+\usepackage{bm}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage[printonlyused, smaller]{acronym}
+\usepackage{subcaption}
+\usepackage{placeins}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{ compat = newest, grid=major, every axis plot/.append style={very thick}, }
+\usetikzlibrary{calc,fit, positioning,arrows.meta}
+\tikzset{>={Latex[width=2mm,length=2mm]}} % more visible default arrow heads
+\tikzstyle{block} = [draw=black, fill=white, rectangle, align=center, minimum height=2em, minimum width=3em]
+\tikzstyle{sum} = [draw, circle, node distance=1cm]
+\newlength\figureheight
+\newlength\figurewidth
+\setlength\figureheight{3cm}
+\setlength\figurewidth{0.7\textwidth}
+\RequirePackage{xcolor}
+\definecolor{UStuttDarkBlue}{RGB}{0,81,158}
+\definecolor{UStuttLightBlue}{RGB}{0,190,255}
+\definecolor{UStuttDarkGreen}{RGB}{59,140,122}
+\definecolor{UStuttLightGreen}{RGB}{125,155,101}
+\definecolor{UStuttDarkOrange}{RGB}{228,175,52}
+\definecolor{UStuttLightOrange}{RGB}{236,218,145}
+\usepackage{listings}
+\usepackage{scrhack} % if you load listings together with scrbook etc., then load this fixing package as well
+\lstset{
+basicstyle=\ttfamily\small,  % Set smaller font size
+captionpos=b,
+commentstyle=\color{UStuttDarkGreen},
+frame=single,                    % adds a frame around the code
+keepspaces=true,
+%keywordstyle=\color{UStuttDarkBlue},
+showspaces=false,
+showstringspaces=false,          % underline spaces within strings only
+showtabs=false,
+stringstyle=\color{UStuttDarkBlue},
+tabsize=2
+}
+\PassOptionsToPackage{pdfpagelabels}{hyperref}
+\usepackage{hyperref}  % backref linktocpage pagebackref
+\ifpdf
+\pdfcompresslevel=9
+\pdfadjustspacing=1
+\fi
+\hypersetup{%
+%draft, % = no hyperlinking at all
+%colorlinks=true,
+colorlinks=false,
+linktocpage=false, pdfborder={0 0 0},%
+breaklinks=true, pdfpagemode=UseNone, pageanchor=true, pdfpagemode=UseOutlines,%
+plainpages=false, bookmarksnumbered, bookmarksopen=true, bookmarksopenlevel=1,%
+hypertexnames=true, pdfhighlight=/O,%nesting=true,%frenchlinks,%
+%urlcolor=Black, linkcolor=Black, citecolor=Black, %pagecolor=Black,%
+}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\T}{\mathrm{T}}
+\newcommand{\mustbe}{\ensuremath{\stackrel{!}{=}}}
+\newcommand{\bmat}[1]{ \ensuremath{\begin{bmatrix} #1 \end{bmatrix}} }
+\newcommand{\partfrac}[2]{ \ensuremath{\frac{\partial #1}{\partial #2}} }
+\newcommand{\ddiff}{\ensuremath{\mathrm{d}}}
+\newcommand{\ddt}{\ensuremath{\frac{\ddiff}{\ddiff t}}}
+\usepackage{lipsum}
+\usepackage{fontspec}
+\lstdefinelanguage{org}{keywords={BEGIN,END,CAPTION,NAME,src,results},morecomment=[l]{\#},morestring=[b]"}
+\providecommand{\lstlistoflistings}{}
+\usepackage{changepage}  % To adjust width
+\newenvironment{narrowmargin}{
+\begin{center}
+\begin{adjustwidth}{-0.5cm}{-0.5cm}
+}{
+\end{adjustwidth}
+\end{center}
+}
+\newenvironment{mediummargin}{
+\begin{center}
+\begin{adjustwidth}{-1cm}{-1cm}
+}{
+\end{adjustwidth}
+\end{center}
+}
+\newenvironment{widemargin}{
+\begin{center}
+\begin{adjustwidth}{-1.5cm}{-1.5cm}
+}{
+\end{adjustwidth}
+\end{center}
+}
+\newenvironment{verywidemargin}{
+\begin{center}
+\begin{adjustwidth}{-2cm}{-2cm}
+}{
+\end{adjustwidth}
+\end{center}
+}
+\newenvironment{extrawidemargin}{
+\begin{center}
+\begin{adjustwidth}{-2.5cm}{-2.5cm}
+}{
+\end{adjustwidth}
+\end{center}
+}
+\usepackage[
+type=MA
+]{iswthesis}
+\usepackage[ngerman, english]{babel}
+\addbibresource{bibliography.bib}
+\title{Emacs Orgmode ISW Template}
+\titleTranslated{Emacs Orgmode ISW Template}
+\author{Max Mustermann}
+\placeOfBirth{Stuttgart}
+\address{Seidenstraße 36, 70174 Stuttgart}
+\major{Mechatronik}
+\matrnr{1234567}
+\date{\today}
+\supervisor{My supervisor, M.Sc.}
+\professor{Prof. Dr.-Ing. Oliver Riedel}
+\date{\today}
+\title{Emacs Orgmode ISW Template}
+\hypersetup{
+ pdfauthor={},
+ pdftitle={Emacs Orgmode ISW Template},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 29.4 (Org mode 9.7.11)}, 
+ pdflang={English}}
+\begin{document}
+
+\frontmatter
+\makeISWtitle
+\cleardoublepage
+
+\setcounter{page}{1} 
+\declarationOfOriginality
+
+\cleardoublepage
+\tableofcontents
+\mainmatter
+\chapter{Orgmode Template}
+\label{sec:org99c1bb0}
+In order to get started with the template you can use the following empty
+document and work from there. This is quite a bit redundant, but as a lot of
+things are set up with comments and orgmode specific options they won't be
+rendered in a Github / Gitlab preview):
+
+\begin{lstlisting}[language=org,numbers=none]
+* Document Setup :ignore:
+# This section contains all the setup necessary to export this org document
+# directly into an ISW style PDF The ~ignore~ tags on the headlines are
+# necessary
+** Setupfile :ignore:
+#+SETUPFILE: settings.org
+** Docment Type :ignore:
+# % This class does the ISW styling for you (together with scrbook).
+# %
+# % It handles the following:
+# % - Proper input and font encoding (Just type, don't care about the LaTeX
+# %   compiler you use or how to type # German umlauts)
+# % - Fonts with ligatures and kerning (Tex Gyre fonts are used, part of every
+# %   LaTeX installation, text is # nice to read
+# % - Bibliography styling for biblatex (declare your bibliography file and you
+# %   are ready to go)
+# % - Provide command for title page (\makeISWtitle) and declaration of
+# %   originality ( \declarationOfOriginality)
+# % - Loads packages "biblatex" and "graphics"
+#+LATEX_HEADER: \usepackage[
+#+LATEX_HEADER:     type=MA
+# #+LATEX_HEADER:     type=BA
+# #+LATEX_HEADER:     type=FA
+# #+LATEX_HEADER:     type=SA
+# #+LATEX_HEADER:     type=bachelorproject
+#+LATEX_HEADER: ]{iswthesis}
+** Language :ignore:
+# #+LATEX_HEADER: \usepackage[english, ngerman]{babel}
+#+LATEX_HEADER: \usepackage[ngerman, english]{babel}
+** Latex: Bibliography :ignore:
+#+LATEX_HEADER: \addbibresource{bibliography.bib}
+** TODO Document Settings: Author, Title, Date :ignore:
+# you need to set both titles, latex and orgmode
+#+TITLE: Emacs Orgmode ISW Template
+#+LATEX_HEADER:\title{Emacs Orgmode ISW Template}
+#+LATEX_HEADER:\titleTranslated{Emacs Orgmode ISW Template}
+#+AUTHOR: 
+#+LATEX_HEADER:\author{Max Mustermann}
+#+LATEX_HEADER:\placeOfBirth{Stuttgart}
+#+LATEX_HEADER:\address{Seidenstraße 36, 70174 Stuttgart}
+#+LATEX_HEADER:\major{Mechatronik}
+#+LATEX_HEADER:\matrnr{1234567}
+#+LATEX_HEADER:\date{\today}
+#+LATEX_HEADER:\supervisor{My supervisor, M.Sc.}
+#+LATEX_HEADER:\professor{Prof. Dr.-Ing. Oliver Riedel}
+** Begin Document Section :ignore:
+
+\frontmatter
+\makeISWtitle
+\cleardoublepage
+# % start at page (i) after title page:
+\setcounter{page}{1} 
+\declarationOfOriginality
+# % Kurzfassung/Abstract
+\cleardoublepage
+\tableofcontents
+\mainmatter
+
+* Your Content
+* Document Ending: Bibliography, Lists, Appendixes :ignore:
+\backmatter
+\cleardoublepage
+\printbibliography
+\cleardoublepage
+\listoffigures
+\cleardoublepage
+\listoftables
+\cleardoublepage
+\end{lstlisting}
+\chapter{(Doom) Emacs specific Configuration}
+\label{sec:orgd0a10ad}
+In order to get this file working here are the minimally relevant sections from the doom emacs configuration:
+\section{init.el}
+\label{sec:org2d8626b}
+
+\begin{widemargin}
+\begin{lstlisting}[language=Lisp,numbers=none]
+(doom! :input
+
+       :completion
+       (corfu +orderless)  ; complete with cap(f), cape and a flying feather!
+       (helm +childframe +fuzzy +icons)              ; the *other* search engine for love and life
+
+       :ui
+       doom              ; what makes DOOM look the way it does
+       doom-dashboard    ; a nifty splash screen for Emacs
+       (emoji +unicode)  ; 
+       hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
+       modeline          ; snazzy, Atom-inspired modeline, plus API
+       ophints           ; highlight the region an operation acts on
+       (popup +defaults)   ; tame sudden yet inevitable temporary windows
+       (vc-gutter +pretty) ; vcs diff in the fringe
+       vi-tilde-fringe   ; fringe tildes to mark beyond EOB
+       workspaces        ; tab emulation, persistence & separate workspaces
+
+       :editor
+       file-templates    ; auto-snippets for empty files
+       fold              ; (nigh) universal code folding
+       snippets          ; my elves. They type so I don't have to
+
+       :emacs
+       dired             ; making dired pretty [functional]
+       electric          ; smarter, keyword-based electric-indent
+       undo              ; persistent, smarter undo for your inevitable mistakes
+       vc                ; version-control and Emacs, sitting in a tree
+
+       :term
+
+       :checkers
+       syntax              ; tasing you for every semicolon you forget
+
+       :tools
+       (eval +overlay)     ; run code, run (also, repls)
+       lookup              ; navigate your code and its documentation
+       magit             ; a git porcelain for Emacs
+       pdf               ; pdf enhancements
+
+       :os
+       (:if (featurep :system 'macos) macos)  ; improve compatibility with macOS
+
+       :lang
+       emacs-lisp        ; drown in parentheses
+       (latex             ; writing papers in Emacs has never been so fun
+        +latexmk
+        )
+       markdown          ; writing docs for people to ignore
+       (org               ; organize your plain life in plain text
+        +pretty
+        +hugo
+        +babel
+        +latex
+       )
+       sh                ; she sells {ba,z,fi}sh shells on the C xor
+
+       :email
+
+       :app
+
+       :config
+       (default +bindings +smartparens))
+\end{lstlisting}
+\end{widemargin}
+\section{Defining the scrbook Latex Class}
+\label{sec:org3501a55}
+In config.el:
+
+\begin{lstlisting}[language=Lisp,numbers=none]
+(add-to-list 'org-latex-classes
+          '("scrbook"
+             "\\documentclass{scrbook}"
+             ("\\chapter{%s}" . "\\chapter{%s}")
+             ("\\section{%s}" . "\\section*{%s}")
+             ("\\subsection{%s}" . "\\subsection*{%s}")
+             ("\\paragraph{%s}" . "\\paragraph*{%s}")
+             )
+     )
+\end{lstlisting}
+\section{org-special-block-extras}
+\label{sec:org8a71643}
+Enables interesting stuff such as the \texttt{ignore} tag, which we use extensively in the Document setup section and the \texttt{settings.org} file.
+
+packages.el:
+\begin{lstlisting}[language=Lisp,numbers=none]
+(package! org-special-block-extras)
+\end{lstlisting}
+
+config.el:
+\begin{widemargin}
+\begin{lstlisting}[language=Lisp,numbers=none]
+;; enable ox-extra in order to be able to use the :ignore: tag to ignore the export of headlines
+(require 'ox-extra)
+(ox-extras-activate '(ignore-headlines))
+\end{lstlisting}
+\end{widemargin}
+\section{Latex Export :: Xelatex}
+\label{sec:orga145337}
+
+config.el:
+\begin{lstlisting}[language=Lisp,numbers=none]
+(after! org
+  (setq org-latex-compiler "xelatex")
+  (setq org-latex-pdf-process
+        '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+          "biber %b"  ;; Run biber to process citations
+          "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+          "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+          "rm -f %o/*.log %o/*.out %o/*.toc %o/*.lof %o/*.lot %o/*.synctex.gz"
+          )))
+\end{lstlisting}
+\section{ox-bibtex}
+\label{sec:orgf666890}
+config.el:
+\begin{lstlisting}[language=Lisp,numbers=none]
+(after! org
+  (require 'ox-bibtex))
+\end{lstlisting}
+\section{bibtex citation format}
+\label{sec:org8354eb2}
+config.el:
+\begin{lstlisting}[language=Lisp,numbers=none]
+(setq bibtex-completion-format-citation-functions
+      '((org-mode      . bibtex-completion-format-citation-org-ref)
+        (latex-mode    . bibtex-completion-format-citation-cite)
+        (markdown-mode . bibtex-completion-format-citation-pandoc-citeproc)))
+\end{lstlisting}
+\section{helm-bibtex}
+\label{sec:orgfafd4eb}
+
+packages.el:
+\begin{lstlisting}[language=Lisp,numbers=none]
+(package! helm-bibtex)
+\end{lstlisting}
+
+config.el:  
+\begin{lstlisting}[language=Lisp,numbers=none]
+;; helm-bibtex related stuff
+(after! helm
+  (use-package! helm-bibtex
+    :custom
+    ;; The line below tells helm-bibtex to find the path to the pdf
+    ;; in the "file" field in the .bib file.
+    (bibtex-completion-pdf-field "file"))
+  ;; I also like to be able to view my library from anywhere in emacs, for
+  ;; example if I want to read a paper. I added the keybind below for that.
+  (map! :leader
+        :desc "Open literature database"
+        "o l" #'helm-bibtex))
+\end{lstlisting}
+\section{{\bfseries\sffamily TODO} bibliography paths}
+\label{sec:org4410698}
+You probably want to change this part when starting to use this:
+
+\begin{lstlisting}[language=Lisp,numbers=none]
+(setq bibtex-completion-bibliography '("~/uni/thesis/bibliography.bib"))
+(setq bibtex-completion-library-path '("~/uni/thesis/literature/"))
+;; (setq bibtex-completion-notes-path "~/uni/thesis/literature/")
+(setq org-ref-default-bibliography '("~/uni/thesis/bibliography.bib"))
+(setq org-ref-pdf-directory "~/uni/thesis/literature/")
+(setq org-ref-bibliography-notes "~/uni/thesis/literature.org")
+\end{lstlisting}
+\section{org-ref}
+\label{sec:orgac0e126}
+
+\begin{lstlisting}[language=Lisp,numbers=none]
+(package! org-ref)
+\end{lstlisting}
+\begin{widemargin}
+\begin{lstlisting}[language=Lisp,numbers=none]
+(defun bibtex-completion-format-citation-org-ref (keys)
+  "Format the citation for `org-ref'."
+  (mapconcat (lambda (key) (format "[[cite:%s]]" key)) keys ", "))
+
+(use-package! org-ref
+    :after org
+    :init
+    ; code to run before loading org-ref
+    :config
+    ; code to run after loading org-ref
+    (after! org
+      (use-package! org-ref
+        :config
+        ;; Set up citation format for org-mode using org-ref
+        (setq bibtex-completion-format-citation-functions
+              '((org-mode . bibtex-completion-format-citation-org-ref)
+                (latex-mode . bibtex-completion-format-citation-cite)
+                (markdown-mode . bibtex-completion-format-citation-pandoc-citeproc))))
+      ))
+\end{lstlisting}
+\end{widemargin}
+\section{Code Export}
+\label{sec:orgecc9ca5}
+In order to export to \texttt{listings} blocks instead of the default \texttt{verbatim} blocks, we need to set this somewhere in config.el:
+\begin{lstlisting}[language=Lisp,numbers=none]
+(after! org
+  (setq org-latex-listings t)
+  (setq org-latex-src-block-backend 'listings))
+\end{lstlisting}
+
+This way we can then export code blocks such as this:
+\begin{lstlisting}[language=org,numbers=none]
+#+NAME: lst:bad_code_example
+#+CAPTION: "This code does not provide any insights and should not be included."
+#+BEGIN_SRC c++ :exports code
+#include <iostream>
+
+using namespace std;
+
+int main(void){
+    cout << "Hello world." << endl;
+    return 0;
+}
+#+END_SRC
+\end{lstlisting}
+
+Into something like this
+
+\begin{lstlisting}[language=c++,label=lst:bad_code_example,caption={``This code does not provide any insights and should not be included.''},captionpos=b,numbers=none]
+#include <iostream>
+
+using namespace std;
+
+int main(void){
+    cout << "Hello world." << endl;
+    return 0;
+}
+\end{lstlisting}
+\chapter{Example Section: Better Margin Control}
+\label{sec:orgffd2a0c}
+Here are a bunch of examples for the newly added margins. Code blocks show them best, as there is a visible border but they are generic so I've also added a table as well.
+
+In org-mode all of them look more or less like this (\textbf{to prevent the Macro being executed I have added Zero Width Space characters here so copy/pasting this won't work}):
+\begin{lstlisting}[language=org,numbers=none]
+...
+{{{ begin-narrowmargin}}} <- Zero Width Space characters in here
+
+{\{{begin-narrowmargin}}}
+#+begin_src emacs-lisp
+  (message "Narrow margin example")
+#+end_src
+
+| A | B | C | D | E | F | A | B | C | D | E | F | A | B |
+|---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+| 2 | 8 | 3 | 1 | 3 | 6 | 2 | 8 | 3 | 1 | 3 | 6 | 2 | 8 |
+| 5 | 7 | 9 | 2 | 2 | 7 | 5 | 7 | 9 | 2 | 2 | 7 | 5 | 7 |...
+{{{ end-narrowmargin}}} <- Zero Width Space characters in here
+...
+\end{lstlisting}
+\section{Narrow Margin (0.5cm)}
+\label{sec:org6765ce8}
+
+\begin{narrowmargin}
+\begin{lstlisting}[language=Lisp,numbers=none]
+  (message "Narrow margin example")
+\end{lstlisting}
+
+\begin{center}
+\begin{tabular}{rrrrrrrrrrrrrrrrrrrrrrr}
+A & B & C & D & E & F & A & B & C & D & E & F & A & B & C & D & E & F & A & B & C & D & E\\
+\hline
+2 & 8 & 3 & 1 & 3 & 6 & 2 & 8 & 3 & 1 & 3 & 6 & 2 & 8 & 3 & 1 & 3 & 6 & 2 & 8 & 3 & 1 & 3\\
+5 & 7 & 9 & 2 & 2 & 7 & 5 & 7 & 9 & 2 & 2 & 7 & 5 & 7 & 9 & 2 & 2 & 7 & 5 & 7 & 9 & 2 & 2\\
+\end{tabular}
+\end{center}
+\end{narrowmargin}
+\section{Medium Margin (1cm)}
+\label{sec:org5632077}
+
+\begin{mediummargin}
+\begin{lstlisting}[language=Lisp,numbers=none]
+  (message "Medium margin example")
+\end{lstlisting}
+
+\begin{center}
+\begin{tabular}{rrrrrrrrrrrrrrrrrrrrrrrr}
+A & B & C & D & E & F & A & B & C & D & E & F & A & B & C & D & E & F & A & B & C & D & E & F\\
+\hline
+2 & 8 & 3 & 1 & 3 & 6 & 2 & 8 & 3 & 1 & 3 & 6 & 2 & 8 & 3 & 1 & 3 & 6 & 2 & 8 & 3 & 1 & 3 & 6\\
+5 & 7 & 9 & 2 & 2 & 7 & 5 & 7 & 9 & 2 & 2 & 7 & 5 & 7 & 9 & 2 & 2 & 7 & 5 & 7 & 9 & 2 & 2 & 7\\
+\end{tabular}
+\end{center}
+\end{mediummargin}
+\section{Wide Margin (1.5cm)}
+\label{sec:orgcc412d2}
+
+\begin{widemargin}
+\begin{lstlisting}[language=Lisp,numbers=none]
+  (message "Wide margin example")
+\end{lstlisting}
+
+\begin{center}
+\begin{tabular}{rrrrrrrrrrrrrrrrrrrrrrrrrr}
+A & B & C & D & E & F & A & B & C & D & E & F & A & B & C & D & E & F & A & B & C & D & E & F & A & B\\
+\hline
+2 & 8 & 3 & 1 & 3 & 6 & 2 & 8 & 3 & 1 & 3 & 6 & 2 & 8 & 3 & 1 & 3 & 6 & 2 & 8 & 3 & 1 & 3 & 6 & 2 & 8\\
+5 & 7 & 9 & 2 & 2 & 7 & 5 & 7 & 9 & 2 & 2 & 7 & 5 & 7 & 9 & 2 & 2 & 7 & 5 & 7 & 9 & 2 & 2 & 7 & 5 & 7\\
+\end{tabular}
+\end{center}
+
+\end{widemargin}
+\section{Very Wide Margin (2cm)}
+\label{sec:orgcb15d45}
+
+\begin{verywidemargin}
+\begin{lstlisting}[language=Lisp,numbers=none]
+  (message "Very wide margin example")
+\end{lstlisting}
+
+\begin{center}
+\begin{tabular}{rrrrrrrrrrrrrrrrrrrrrrrrrrr}
+A & B & C & D & E & F & A & B & C & D & E & F & A & B & C & D & E & F & A & B & C & D & E & F & A & B & C\\
+\hline
+2 & 8 & 3 & 1 & 3 & 6 & 2 & 8 & 3 & 1 & 3 & 6 & 2 & 8 & 3 & 1 & 3 & 6 & 2 & 8 & 3 & 1 & 3 & 6 & 2 & 8 & 3\\
+5 & 7 & 9 & 2 & 2 & 7 & 5 & 7 & 9 & 2 & 2 & 7 & 5 & 7 & 9 & 2 & 2 & 7 & 5 & 7 & 9 & 2 & 2 & 7 & 5 & 7 & 9\\
+\end{tabular}
+\end{center}
+\end{verywidemargin}
+\section{Extra Wide Margin (2.5cm)}
+\label{sec:org15d4bdf}
+
+\begin{extrawidemargin}
+\begin{lstlisting}[language=Lisp,numbers=none]
+  (message "Extra wide margin example")
+\end{lstlisting}
+
+\begin{center}
+\begin{tabular}{lrrrrrrrrrrrrrrrrrrrrrrrrr}
+Gadget & A & B & C & D & E & F & A & B & C & D & E & F & A & B & C & D & E & F & A & B & C & D & E & F & Units\\
+\hline
+Phone & 2 & 8 & 3 & 1 & 3 & 6 & 2 & 8 & 3 & 1 & 3 & 6 & 2 & 8 & 3 & 1 & 3 & 6 & 2 & 8 & 3 & 1 & 3 & 6 & 1\\
+Laptop & 5 & 7 & 9 & 2 & 2 & 7 & 5 & 7 & 9 & 2 & 2 & 7 & 5 & 7 & 9 & 2 & 2 & 7 & 5 & 7 & 9 & 2 & 2 & 7 & 2\\
+\end{tabular}
+\end{center}
+\end{extrawidemargin}
+\chapter{Quotes}
+\label{sec:org8632686}
+
+Here are some random quotes from the ISW bibliography.
+
+So let's just quote \cite{Kohm2013}
+
+\begin{itemize}
+\item \cite{talbot2014}
+
+\item Talbot, N. (2014). User manual for glossaries.sty v4.09.
+
+\item A quote with page number: \cite{talbot2014}{[}p.10] (not sure if this one works as in intended)
+
+\begin{itemize}
+\item \cite{Hoffmann2014}
+\end{itemize}
+\end{itemize}
+\chapter{Import of the rest of the chapters}
+\label{sec:org33e130c}
+Lets add in the other chapters here:
+
+\begin{lstlisting}[language=org,numbers=none]
+#+LATEX: \input{chapters/Introduction}
+#+LATEX: \input{chapters/Examples}
+#+LATEX: \input{chapters/Tooling}
+
+#+LATEX: \input{chapters/Acronyms}
+#+LATEX: \input{chapters/Symbols}
+\end{lstlisting}
+
+When Importing everything this way, we get a bunch of errors / warnings. As they
+are caused by the template itself I won't bother to fix them here. Commenting
+the \texttt{\#+LATEX} lines out will compile a working document.
+
+\input{chapters/Introduction}
+\input{chapters/Examples}
+\input{chapters/Tooling}
+
+\input{chapters/Acronyms}
+\input{chapters/Symbols}
+\backmatter
+\cleardoublepage
+\printbibliography
+\cleardoublepage
+\listoffigures
+\cleardoublepage
+\listoftables
+\cleardoublepage
+\end{document}

@@ -1,0 +1,232 @@
+* Document Setup :ignore:
+# This section contains all the setup necessary to export this org document directly into an ISW style PDF
+# The ~ignore~ tags on the headlines are necessary
+** Generic orgmode options :ignore:
+#+LANGUAGE: en
+#+OPTIONS: toc:nil
+#+OPTIONS: title:nil
+# #+OPTIONS: num:nil
+#+PROPERTY: header-args :eval never-export
+** Document Class :ignore:
+#+LATEX_CLASS: scrbook
+#+LATEX_CLASS_OPTIONS: [a4paper,oneside,toc=bibliography,toc=listof]
+** settings.tex Options :ignore:
+# Most of the settings.tex options are in this section
+
+#+LATEX_HEADER: \usepackage[T1]{fontenc}
+#+LATEX_HEADER: \usepackage[utf8]{inputenc}
+
+
+# % general math support
+# % consider using bracket environments for inline math, i.e. \(x_2^2 + \sqrt{\gamma}\) instead of $$.
+# % for numbered equations in their own line, use e.g. the array environment. 
+#+LATEX_HEADER: \usepackage{amsmath, amssymb}
+
+# % bold math package. Set matrices and vectors with \bm{v}
+#+LATEX_HEADER: \usepackage{bm}
+
+# % beautiful table environments (see https://ctan.org/pkg/booktabs)
+#+LATEX_HEADER: \usepackage{booktabs}
+
+# % multi page table. Your list of symbols may need this
+#+LATEX_HEADER: \usepackage{longtable}
+
+# % consistent acronym definitions and usage. You may want to use the glossaries package instead, which is more powerful, but more complex to handle.
+#+LATEX_HEADER: \usepackage[printonlyused, smaller]{acronym}
+
+# % for multiple plots in one figue, e.g. Fig 1.a and Fig 1.b
+# % https://en.wikibooks.org/wiki/LaTeX/Floats,_Figures_and_Captions#Subfloats
+#+LATEX_HEADER: \usepackage{subcaption}
+
+# % provides \FloatBarrier to prevent floats past some point.
+#+LATEX_HEADER: \usepackage{placeins}
+
+# % For vector graphics and MATLAB figures, you may try TikZ:
+# % There is also tikz-uml for UML diagrams
+#+LATEX_HEADER: \usepackage{tikz}
+
+#+LATEX_HEADER: \usepackage{pgfplots}
+#+LATEX_HEADER: \pgfplotsset{ compat = newest, grid=major, every axis plot/.append style={very thick}, }
+
+# % block diagrams with tikz
+#+LATEX_HEADER: \usetikzlibrary{calc,fit, positioning,arrows.meta}
+#+LATEX_HEADER: \tikzset{>={Latex[width=2mm,length=2mm]}} % more visible default arrow heads
+#+LATEX_HEADER: \tikzstyle{block} = [draw=black, fill=white, rectangle, align=center, minimum height=2em, minimum width=3em]
+#+LATEX_HEADER: \tikzstyle{sum} = [draw, circle, node distance=1cm]
+
+# % global matlab2tikz options for exporting MATLAB plots
+# % https://github.com/matlab2tikz/matlab2tikz
+#+LATEX_HEADER: \newlength\figureheight 
+#+LATEX_HEADER: \newlength\figurewidth 
+#+LATEX_HEADER: \setlength\figureheight{3cm} 
+#+LATEX_HEADER: \setlength\figurewidth{0.7\textwidth}
+
+# % If you want to use colors, we already defined some for you (university corporate design)
+#+LATEX_HEADER: \RequirePackage{xcolor}
+
+#+LATEX_HEADER: \definecolor{UStuttDarkBlue}{RGB}{0,81,158}
+#+LATEX_HEADER: \definecolor{UStuttLightBlue}{RGB}{0,190,255}
+#+LATEX_HEADER: \definecolor{UStuttDarkGreen}{RGB}{59,140,122}
+#+LATEX_HEADER: \definecolor{UStuttLightGreen}{RGB}{125,155,101}
+#+LATEX_HEADER: \definecolor{UStuttDarkOrange}{RGB}{228,175,52}
+#+LATEX_HEADER: \definecolor{UStuttLightOrange}{RGB}{236,218,145}
+
+# % for code listings, you can e.g. use the "listings" package (http://texdoc.net/texmf-dist/doc/latex/listings/listings.pdf):
+#+LATEX_HEADER: \usepackage{listings} 
+#+LATEX_HEADER: \usepackage{scrhack} % if you load listings together with scrbook etc., then load this fixing package as well
+
+
+
+#+LATEX_HEADER: \lstset{
+
+#+LATEX_HEADER:   basicstyle=\ttfamily\small,  % Set smaller font size
+
+#+LATEX_HEADER:   captionpos=b,
+#+LATEX_HEADER:   commentstyle=\color{UStuttDarkGreen},
+#+LATEX_HEADER:   frame=single,                    % adds a frame around the code
+#+LATEX_HEADER:   keepspaces=true,
+#+LATEX_HEADER:   %keywordstyle=\color{UStuttDarkBlue},
+#+LATEX_HEADER:   showspaces=false,
+#+LATEX_HEADER:   showstringspaces=false,          % underline spaces within strings only
+#+LATEX_HEADER:   showtabs=false,
+#+LATEX_HEADER:   stringstyle=\color{UStuttDarkBlue},
+#+LATEX_HEADER:   tabsize=2
+#+LATEX_HEADER: }
+
+# % hyperref provides hyperlinks within the document, but also auto-naming.
+# % E.g. when referencing, instead of typing "Figure~\ref{fig:XY}" try "\autoref{fig:XY}".
+# % You may want to use `clevceref` instead of using \autoref in the hyperref package, which has slightly more possibilities.
+#+LATEX_HEADER: \PassOptionsToPackage{pdfpagelabels}{hyperref}
+#+LATEX_HEADER: \usepackage{hyperref}  % backref linktocpage pagebackref
+# The following options are incompatible with Xelatex / Lualatex, hence wrapped in \ifpdf..\fi
+#+LATEX_HEADER: \ifpdf
+#+LATEX_HEADER: \pdfcompresslevel=9
+#+LATEX_HEADER: \pdfadjustspacing=1
+#+LATEX_HEADER: \fi
+
+#+LATEX_HEADER: \hypersetup{%
+#+LATEX_HEADER:     %draft, % = no hyperlinking at all
+#+LATEX_HEADER:     %colorlinks=true,
+#+LATEX_HEADER:     colorlinks=false, 
+#+LATEX_HEADER:     linktocpage=false, pdfborder={0 0 0},%
+#+LATEX_HEADER:     breaklinks=true, pdfpagemode=UseNone, pageanchor=true, pdfpagemode=UseOutlines,%
+#+LATEX_HEADER:     plainpages=false, bookmarksnumbered, bookmarksopen=true, bookmarksopenlevel=1,%
+#+LATEX_HEADER:     hypertexnames=true, pdfhighlight=/O,%nesting=true,%frenchlinks,%
+#+LATEX_HEADER:     %urlcolor=Black, linkcolor=Black, citecolor=Black, %pagecolor=Black,%
+#+LATEX_HEADER: } 
+
+# % Your own commands (https://en.wikibooks.org/wiki/LaTeX/Macros):
+# % Consider defining your own commands for often used terms, e.g.
+
+# % Real numbers symbol
+#+LATEX_HEADER: \newcommand{\R}{\mathbb{R}}
+
+# % Transpose of vector or matrix (upright)
+#+LATEX_HEADER: \newcommand{\T}{\mathrm{T}}
+
+#+LATEX_HEADER: \newcommand{\mustbe}{\ensuremath{\stackrel{!}{=}}}
+
+# % short matrix environment. Instead of typing \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix} you can now use as well \bmat{1 & 2 \\ 3 & 4}
+#+LATEX_HEADER: \newcommand{\bmat}[1]{ \ensuremath{\begin{bmatrix} #1 \end{bmatrix}} }
+
+# % partial derivative: \partfrac{^2}{x^2} yields ∂²/∂x²
+#+LATEX_HEADER: \newcommand{\partfrac}[2]{ \ensuremath{\frac{\partial #1}{\partial #2}} }
+
+# % upright "d" for differentiation
+#+LATEX_HEADER: \newcommand{\ddiff}{\ensuremath{\mathrm{d}}}
+
+# % d/dt
+#+LATEX_HEADER: \newcommand{\ddt}{\ensuremath{\frac{\ddiff}{\ddiff t}}}
+** Latex: Additional Settings :ignore:
+#+LATEX_HEADER: \usepackage{lipsum}
+#+LATEX_HEADER: \usepackage{fontspec}
+
+
+# Define orgmode as language for listings
+#+LATEX_HEADER: \lstdefinelanguage{org}{keywords={BEGIN,END,CAPTION,NAME,src,results},morecomment=[l]{\#},morestring=[b]"}
+
+# Weird warning about \lstlistoflistings, which is however not used, disable it:
+#+LATEX_HEADER: \providecommand{\lstlistoflistings}{}
+
+# https://tex.stackexchange.com/questions/640390
+# #+LATEX_HEADER: \defaultfontfeatures{}
+** Latex: better margin control :ignore:
+# In this section we define a bunch of environments as well as some orgmode
+# macros, which we can use to control the width of e.g. our code blocks. This is
+# a nice little addition in cases where we want to add something into the
+# document and it just looks horrible!
+
+# We can use them like this later on:
+# {{{<begin-macroname>}}
+# #+begin_src bash
+# echo "booh!"
+# #+end_src
+# {{{<end-macroname>}}}
+
+# We'll create:
+# narrowmargin (0.5cm)
+# mediummargin (1cm)
+# widemargin (1.5cm)
+# verywidemargin (2cm)
+# extrawidemargin (2.5cm)
+
+# we need changepage for the positioning
+#+LATEX_HEADER: \usepackage{changepage}  % To adjust width
+
+# next we create environment as well as their corresponding Macros
+
+#+LATEX_HEADER: \newenvironment{narrowmargin}{
+#+LATEX_HEADER:   \begin{center}
+#+LATEX_HEADER:     \begin{adjustwidth}{-0.5cm}{-0.5cm}
+#+LATEX_HEADER: }{
+#+LATEX_HEADER:     \end{adjustwidth}
+#+LATEX_HEADER:   \end{center}
+#+LATEX_HEADER: }
+
+#+MACRO: begin-narrowmargin @@latex:\begin{narrowmargin}@@
+#+MACRO: end-narrowmargin @@latex:\end{narrowmargin}@@
+
+#+LATEX_HEADER: \newenvironment{mediummargin}{
+#+LATEX_HEADER:   \begin{center}
+#+LATEX_HEADER:     \begin{adjustwidth}{-1cm}{-1cm}
+#+LATEX_HEADER: }{
+#+LATEX_HEADER:     \end{adjustwidth}
+#+LATEX_HEADER:   \end{center}
+#+LATEX_HEADER: }
+
+#+MACRO: begin-mediummargin @@latex:\begin{mediummargin}@@
+#+MACRO: end-mediummargin @@latex:\end{mediummargin}@@
+
+#+LATEX_HEADER: \newenvironment{widemargin}{
+#+LATEX_HEADER:   \begin{center}
+#+LATEX_HEADER:     \begin{adjustwidth}{-1.5cm}{-1.5cm}
+#+LATEX_HEADER: }{
+#+LATEX_HEADER:     \end{adjustwidth}
+#+LATEX_HEADER:   \end{center}
+#+LATEX_HEADER: }
+
+#+MACRO: begin-widemargin @@latex:\begin{widemargin}@@
+#+MACRO: end-widemargin @@latex:\end{widemargin}@@
+
+#+LATEX_HEADER: \newenvironment{verywidemargin}{
+#+LATEX_HEADER:   \begin{center}
+#+LATEX_HEADER:     \begin{adjustwidth}{-2cm}{-2cm}
+#+LATEX_HEADER: }{
+#+LATEX_HEADER:     \end{adjustwidth}
+#+LATEX_HEADER:   \end{center}
+#+LATEX_HEADER: }
+
+#+MACRO: begin-verywidemargin @@latex:\begin{verywidemargin}@@
+#+MACRO: end-verywidemargin @@latex:\end{verywidemargin}@@
+
+#+LATEX_HEADER: \newenvironment{extrawidemargin}{
+#+LATEX_HEADER:   \begin{center}
+#+LATEX_HEADER:     \begin{adjustwidth}{-2.5cm}{-2.5cm}
+#+LATEX_HEADER: }{
+#+LATEX_HEADER:     \end{adjustwidth}
+#+LATEX_HEADER:   \end{center}
+#+LATEX_HEADER: }
+
+#+MACRO: begin-extrawidemargin @@latex:\begin{extrawidemargin}@@
+#+MACRO: end-extrawidemargin @@latex:\end{extrawidemargin}@@
+

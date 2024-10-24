@@ -1,0 +1,497 @@
+* Document Setup :ignore:
+# This section contains all the setup necessary to export this org document
+# directly into an ISW style PDF The ~ignore~ tags on the headlines are
+# necessary
+** Setupfile :ignore:
+#+SETUPFILE: settings.org
+** Docment Type :ignore:
+# % This class does the ISW styling for you (together with scrbook).
+# %
+# % It handles the following:
+# % - Proper input and font encoding (Just type, don't care about the LaTeX compiler you use or how to type # German umlauts)
+# % - Fonts with ligatures and kerning (Tex Gyre fonts are used, part of every LaTeX installation, text is # nice to read)
+# % - Bibliography styling for biblatex (declare your bibliography file and you are ready to go)
+# % - Provide command for title page (\makeISWtitle) and declaration of originality ( \declarationOfOriginality)
+# % - Loads packages "biblatex" and "graphics"
+#+LATEX_HEADER: \usepackage[
+#+LATEX_HEADER:     type=MA
+# #+LATEX_HEADER:     type=BA
+# #+LATEX_HEADER:     type=FA
+# #+LATEX_HEADER:     type=SA
+# #+LATEX_HEADER:     type=bachelorproject
+#+LATEX_HEADER: ]{iswthesis}
+** Language :ignore:
+# #+LATEX_HEADER: \usepackage[english, ngerman]{babel}
+#+LATEX_HEADER: \usepackage[ngerman, english]{babel}
+** Latex: Bibliography :ignore:
+#+LATEX_HEADER: \addbibresource{bibliography.bib}
+** TODO Document Settings: Author, Title, Date :ignore:
+# you need to set both titles, latex and orgmode
+#+TITLE: Emacs Orgmode ISW Template
+#+LATEX_HEADER:\title{Emacs Orgmode ISW Template}
+#+LATEX_HEADER:\titleTranslated{Emacs Orgmode ISW Template}
+#+AUTHOR: 
+#+LATEX_HEADER:\author{Max Mustermann}
+#+LATEX_HEADER:\placeOfBirth{Stuttgart}
+#+LATEX_HEADER:\address{Seidenstraße 36, 70174 Stuttgart}
+#+LATEX_HEADER:\major{Mechatronik}
+#+LATEX_HEADER:\matrnr{1234567}
+#+LATEX_HEADER:\date{\today}
+#+LATEX_HEADER:\supervisor{My supervisor, M.Sc.}
+#+LATEX_HEADER:\professor{Prof. Dr.-Ing. Oliver Riedel}
+** Begin Document Section :ignore:
+
+\frontmatter
+\makeISWtitle
+\cleardoublepage
+# % start at page (i) after title page:
+\setcounter{page}{1} 
+\declarationOfOriginality
+# % Kurzfassung/Abstract
+\cleardoublepage
+\tableofcontents
+\mainmatter
+
+* Orgmode Template
+In order to get started with the template you can use the following empty
+document and work from there. This is quite a bit redundant, but as a lot of
+things are set up with comments and orgmode specific options they won't be
+rendered in a Github / Gitlab preview):
+
+#+begin_src org
+,* Document Setup :ignore:
+# This section contains all the setup necessary to export this org document
+# directly into an ISW style PDF The ~ignore~ tags on the headlines are
+# necessary
+,** Setupfile :ignore:
+,#+SETUPFILE: settings.org
+,** Docment Type :ignore:
+# % This class does the ISW styling for you (together with scrbook).
+# %
+# % It handles the following:
+# % - Proper input and font encoding (Just type, don't care about the LaTeX
+# %   compiler you use or how to type # German umlauts)
+# % - Fonts with ligatures and kerning (Tex Gyre fonts are used, part of every
+# %   LaTeX installation, text is # nice to read
+# % - Bibliography styling for biblatex (declare your bibliography file and you
+# %   are ready to go)
+# % - Provide command for title page (\makeISWtitle) and declaration of
+# %   originality ( \declarationOfOriginality)
+# % - Loads packages "biblatex" and "graphics"
+,#+LATEX_HEADER: \usepackage[
+,#+LATEX_HEADER:     type=MA
+# #+LATEX_HEADER:     type=BA
+# #+LATEX_HEADER:     type=FA
+# #+LATEX_HEADER:     type=SA
+# #+LATEX_HEADER:     type=bachelorproject
+,#+LATEX_HEADER: ]{iswthesis}
+,** Language :ignore:
+# #+LATEX_HEADER: \usepackage[english, ngerman]{babel}
+,#+LATEX_HEADER: \usepackage[ngerman, english]{babel}
+,** Latex: Bibliography :ignore:
+,#+LATEX_HEADER: \addbibresource{bibliography.bib}
+,** TODO Document Settings: Author, Title, Date :ignore:
+# you need to set both titles, latex and orgmode
+,#+TITLE: Emacs Orgmode ISW Template
+,#+LATEX_HEADER:\title{Emacs Orgmode ISW Template}
+,#+LATEX_HEADER:\titleTranslated{Emacs Orgmode ISW Template}
+,#+AUTHOR: 
+,#+LATEX_HEADER:\author{Max Mustermann}
+,#+LATEX_HEADER:\placeOfBirth{Stuttgart}
+,#+LATEX_HEADER:\address{Seidenstraße 36, 70174 Stuttgart}
+,#+LATEX_HEADER:\major{Mechatronik}
+,#+LATEX_HEADER:\matrnr{1234567}
+,#+LATEX_HEADER:\date{\today}
+,#+LATEX_HEADER:\supervisor{My supervisor, M.Sc.}
+,#+LATEX_HEADER:\professor{Prof. Dr.-Ing. Oliver Riedel}
+,** Begin Document Section :ignore:
+
+\frontmatter
+\makeISWtitle
+\cleardoublepage
+# % start at page (i) after title page:
+\setcounter{page}{1} 
+\declarationOfOriginality
+# % Kurzfassung/Abstract
+\cleardoublepage
+\tableofcontents
+\mainmatter
+
+,* Your Content
+,* Document Ending: Bibliography, Lists, Appendixes :ignore:
+\backmatter
+\cleardoublepage
+\printbibliography
+\cleardoublepage
+\listoffigures
+\cleardoublepage
+\listoftables
+\cleardoublepage
+#+end_src
+
+* (Doom) Emacs specific Configuration
+In order to get this file working here are the minimally relevant sections from the doom emacs configuration:
+** init.el
+
+{{{begin-widemargin}}}
+#+begin_src emacs-lisp
+(doom! :input
+
+       :completion
+       (corfu +orderless)  ; complete with cap(f), cape and a flying feather!
+       (helm +childframe +fuzzy +icons)              ; the *other* search engine for love and life
+
+       :ui
+       doom              ; what makes DOOM look the way it does
+       doom-dashboard    ; a nifty splash screen for Emacs
+       (emoji +unicode)  ; 
+       hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
+       modeline          ; snazzy, Atom-inspired modeline, plus API
+       ophints           ; highlight the region an operation acts on
+       (popup +defaults)   ; tame sudden yet inevitable temporary windows
+       (vc-gutter +pretty) ; vcs diff in the fringe
+       vi-tilde-fringe   ; fringe tildes to mark beyond EOB
+       workspaces        ; tab emulation, persistence & separate workspaces
+
+       :editor
+       file-templates    ; auto-snippets for empty files
+       fold              ; (nigh) universal code folding
+       snippets          ; my elves. They type so I don't have to
+
+       :emacs
+       dired             ; making dired pretty [functional]
+       electric          ; smarter, keyword-based electric-indent
+       undo              ; persistent, smarter undo for your inevitable mistakes
+       vc                ; version-control and Emacs, sitting in a tree
+
+       :term
+
+       :checkers
+       syntax              ; tasing you for every semicolon you forget
+
+       :tools
+       (eval +overlay)     ; run code, run (also, repls)
+       lookup              ; navigate your code and its documentation
+       magit             ; a git porcelain for Emacs
+       pdf               ; pdf enhancements
+
+       :os
+       (:if (featurep :system 'macos) macos)  ; improve compatibility with macOS
+
+       :lang
+       emacs-lisp        ; drown in parentheses
+       (latex             ; writing papers in Emacs has never been so fun
+        +latexmk
+        )
+       markdown          ; writing docs for people to ignore
+       (org               ; organize your plain life in plain text
+        +pretty
+        +hugo
+        +babel
+        +latex
+       )
+       sh                ; she sells {ba,z,fi}sh shells on the C xor
+
+       :email
+
+       :app
+
+       :config
+       (default +bindings +smartparens))
+#+end_src
+{{{end-widemargin}}}
+
+** Defining the scrbook Latex Class
+In config.el:
+
+#+begin_src emacs-lisp
+(add-to-list 'org-latex-classes
+          '("scrbook"
+             "\\documentclass{scrbook}"
+             ("\\chapter{%s}" . "\\chapter{%s}")
+             ("\\section{%s}" . "\\section*{%s}")
+             ("\\subsection{%s}" . "\\subsection*{%s}")
+             ("\\paragraph{%s}" . "\\paragraph*{%s}")
+             )
+     )
+#+end_src
+
+** org-special-block-extras
+Enables interesting stuff such as the ~ignore~ tag, which we use extensively in the Document setup section and the =settings.org= file.
+
+packages.el:
+#+begin_src emacs-lisp
+(package! org-special-block-extras)
+#+end_src
+
+config.el:
+{{{begin-widemargin}}}
+#+begin_src emacs-lisp
+;; enable ox-extra in order to be able to use the :ignore: tag to ignore the export of headlines
+(require 'ox-extra)
+(ox-extras-activate '(ignore-headlines))
+#+end_src
+{{{end-widemargin}}}
+** Latex Export :: Xelatex
+
+config.el:
+#+begin_src emacs-lisp :tangle ./config.el
+(after! org
+  (setq org-latex-compiler "xelatex")
+  (setq org-latex-pdf-process
+        '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+          "biber %b"  ;; Run biber to process citations
+          "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+          "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+          "rm -f %o/*.log %o/*.out %o/*.toc %o/*.lof %o/*.lot %o/*.synctex.gz"
+          )))
+#+end_src
+** ox-bibtex
+config.el:
+#+begin_src emacs-lisp :tangle ./config.el
+(after! org
+  (require 'ox-bibtex))
+#+end_src
+** bibtex citation format
+config.el:
+#+begin_src emacs-lisp :tangle ./config.el
+(setq bibtex-completion-format-citation-functions
+      '((org-mode      . bibtex-completion-format-citation-org-ref)
+        (latex-mode    . bibtex-completion-format-citation-cite)
+        (markdown-mode . bibtex-completion-format-citation-pandoc-citeproc)))
+#+end_src
+** helm-bibtex
+
+packages.el:
+#+begin_src emacs-lisp :tangle ./packages.el
+(package! helm-bibtex)
+#+end_src
+
+config.el:  
+#+begin_src emacs-lisp :tangle ./config.el
+;; helm-bibtex related stuff
+(after! helm
+  (use-package! helm-bibtex
+    :custom
+    ;; The line below tells helm-bibtex to find the path to the pdf
+    ;; in the "file" field in the .bib file.
+    (bibtex-completion-pdf-field "file"))
+  ;; I also like to be able to view my library from anywhere in emacs, for
+  ;; example if I want to read a paper. I added the keybind below for that.
+  (map! :leader
+        :desc "Open literature database"
+        "o l" #'helm-bibtex))
+#+end_src
+
+** TODO bibliography paths
+You probably want to change this part when starting to use this:
+
+#+begin_src emacs-lisp :tangle ./config.el
+(setq bibtex-completion-bibliography '("~/uni/thesis/bibliography.bib"))
+(setq bibtex-completion-library-path '("~/uni/thesis/literature/"))
+;; (setq bibtex-completion-notes-path "~/uni/thesis/literature/")
+(setq org-ref-default-bibliography '("~/uni/thesis/bibliography.bib"))
+(setq org-ref-pdf-directory "~/uni/thesis/literature/")
+(setq org-ref-bibliography-notes "~/uni/thesis/literature.org")
+#+end_src
+
+** org-ref
+
+#+begin_src emacs-lisp :tangle ./packages.el
+(package! org-ref)
+#+end_src
+{{{begin-widemargin}}}
+#+begin_src emacs-lisp :tangle ./config.el
+(defun bibtex-completion-format-citation-org-ref (keys)
+  "Format the citation for `org-ref'."
+  (mapconcat (lambda (key) (format "[[cite:%s]]" key)) keys ", "))
+
+(use-package! org-ref
+    :after org
+    :init
+    ; code to run before loading org-ref
+    :config
+    ; code to run after loading org-ref
+    (after! org
+      (use-package! org-ref
+        :config
+        ;; Set up citation format for org-mode using org-ref
+        (setq bibtex-completion-format-citation-functions
+              '((org-mode . bibtex-completion-format-citation-org-ref)
+                (latex-mode . bibtex-completion-format-citation-cite)
+                (markdown-mode . bibtex-completion-format-citation-pandoc-citeproc))))
+      ))
+#+end_src
+{{{end-widemargin}}}
+** Code Export
+In order to export to ~listings~ blocks instead of the default ~verbatim~ blocks, we need to set this somewhere in config.el:
+#+begin_src emacs-lisp
+(after! org
+  (setq org-latex-listings t)
+  (setq org-latex-src-block-backend 'listings))
+#+end_src
+
+This way we can then export code blocks such as this:
+#+begin_src org
+,#+NAME: lst:bad_code_example
+,#+CAPTION: "This code does not provide any insights and should not be included."
+,#+BEGIN_SRC c++ :exports code
+#include <iostream>
+
+using namespace std;
+
+int main(void){
+    cout << "Hello world." << endl;
+    return 0;
+}
+,#+END_SRC
+#+end_src
+
+Into something like this
+
+#+NAME: lst:bad_code_example
+#+CAPTION: "This code does not provide any insights and should not be included."
+#+BEGIN_SRC c++ :exports code
+#include <iostream>
+
+using namespace std;
+
+int main(void){
+    cout << "Hello world." << endl;
+    return 0;
+}
+#+END_SRC
+
+* Example Section: Better Margin Control
+Here are a bunch of examples for the newly added margins. Code blocks show them best, as there is a visible border but they are generic so I've also added a table as well.
+
+In org-mode all of them look more or less like this (*to prevent the Macro being executed I have added Zero Width Space characters here so copy/pasting this won't work*):
+#+begin_src org
+...
+{{{ begin-narrowmargin}}} <- Zero Width Space characters in here
+
+{\{{begin-narrowmargin}}}
+,#+begin_src emacs-lisp
+  (message "Narrow margin example")
+,#+end_src
+
+| A | B | C | D | E | F | A | B | C | D | E | F | A | B |
+|---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+| 2 | 8 | 3 | 1 | 3 | 6 | 2 | 8 | 3 | 1 | 3 | 6 | 2 | 8 |
+| 5 | 7 | 9 | 2 | 2 | 7 | 5 | 7 | 9 | 2 | 2 | 7 | 5 | 7 |...
+{{{ end-narrowmargin}}} <- Zero Width Space characters in here
+...
+#+end_src
+
+** Narrow Margin (0.5cm)
+
+{{{begin-narrowmargin}}}
+#+begin_src emacs-lisp
+  (message "Narrow margin example")
+#+end_src
+
+| A | B | C | D | E | F | A | B | C | D | E | F | A | B | C | D | E | F | A | B | C | D | E |
+|---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---|
+| 2 | 8 | 3 | 1 | 3 | 6 | 2 | 8 | 3 | 1 | 3 | 6 | 2 | 8 | 3 | 1 | 3 | 6 | 2 | 8 | 3 | 1 | 3 |
+| 5 | 7 | 9 | 2 | 2 | 7 | 5 | 7 | 9 | 2 | 2 | 7 | 5 | 7 | 9 | 2 | 2 | 7 | 5 | 7 | 9 | 2 | 2 |
+{{{end-narrowmargin}}}
+
+** Medium Margin (1cm)
+
+{{{begin-mediummargin}}}
+#+begin_src emacs-lisp
+  (message "Medium margin example")
+#+end_src
+
+| A | B | C | D | E | F | A | B | C | D | E | F | A | B | C | D | E | F | A | B | C | D | E | F |
+|---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---|
+| 2 | 8 | 3 | 1 | 3 | 6 | 2 | 8 | 3 | 1 | 3 | 6 | 2 | 8 | 3 | 1 | 3 | 6 | 2 | 8 | 3 | 1 | 3 | 6 |
+| 5 | 7 | 9 | 2 | 2 | 7 | 5 | 7 | 9 | 2 | 2 | 7 | 5 | 7 | 9 | 2 | 2 | 7 | 5 | 7 | 9 | 2 | 2 | 7 |
+{{{end-mediummargin}}}
+
+** Wide Margin (1.5cm)
+
+{{{begin-widemargin}}}
+#+begin_src emacs-lisp
+  (message "Wide margin example")
+#+end_src
+
+| A | B | C | D | E | F | A | B | C | D | E | F | A | B | C | D | E | F | A | B | C | D | E | F | A | B |
+|---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---|
+| 2 | 8 | 3 | 1 | 3 | 6 | 2 | 8 | 3 | 1 | 3 | 6 | 2 | 8 | 3 | 1 | 3 | 6 | 2 | 8 | 3 | 1 | 3 | 6 | 2 | 8 |
+| 5 | 7 | 9 | 2 | 2 | 7 | 5 | 7 | 9 | 2 | 2 | 7 | 5 | 7 | 9 | 2 | 2 | 7 | 5 | 7 | 9 | 2 | 2 | 7 | 5 | 7 |
+
+{{{end-widemargin}}}
+
+** Very Wide Margin (2cm)
+
+{{{begin-verywidemargin}}}
+#+begin_src emacs-lisp
+  (message "Very wide margin example")
+#+end_src
+
+| A | B | C | D | E | F | A | B | C | D | E | F | A | B | C | D | E | F | A | B | C | D | E | F | A | B | C |
+|---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---|
+| 2 | 8 | 3 | 1 | 3 | 6 | 2 | 8 | 3 | 1 | 3 | 6 | 2 | 8 | 3 | 1 | 3 | 6 | 2 | 8 | 3 | 1 | 3 | 6 | 2 | 8 | 3 |
+| 5 | 7 | 9 | 2 | 2 | 7 | 5 | 7 | 9 | 2 | 2 | 7 | 5 | 7 | 9 | 2 | 2 | 7 | 5 | 7 | 9 | 2 | 2 | 7 | 5 | 7 | 9 |
+{{{end-verywidemargin}}}
+
+** Extra Wide Margin (2.5cm)
+
+{{{begin-extrawidemargin}}}
+#+begin_src emacs-lisp
+  (message "Extra wide margin example")
+#+end_src
+
+| Gadget | A | B | C | D | E | F | A | B | C | D | E | F | A | B | C | D | E | F | A | B | C | D | E | F | Units |
+|--------+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+-------|
+| Phone  | 2 | 8 | 3 | 1 | 3 | 6 | 2 | 8 | 3 | 1 | 3 | 6 | 2 | 8 | 3 | 1 | 3 | 6 | 2 | 8 | 3 | 1 | 3 | 6 |     1 |
+| Laptop | 5 | 7 | 9 | 2 | 2 | 7 | 5 | 7 | 9 | 2 | 2 | 7 | 5 | 7 | 9 | 2 | 2 | 7 | 5 | 7 | 9 | 2 | 2 | 7 |     2 |
+{{{end-extrawidemargin}}}
+
+* Quotes
+
+Here are some random quotes from the ISW bibliography.
+
+So let's just quote cite:Kohm2013
+
+- cite:talbot2014
+
+- Talbot, N. (2014). User manual for glossaries.sty v4.09.
+
+- A quote with page number: [[cite:talbot2014]][p.10] (not sure if this one works as in intended)
+
+  - [[cite:Hoffmann2014]]
+
+* Import of the rest of the chapters
+Lets add in the other chapters here:
+
+#+begin_src org
+#+LATEX: \input{chapters/Introduction}
+#+LATEX: \input{chapters/Examples}
+#+LATEX: \input{chapters/Tooling}
+
+#+LATEX: \input{chapters/Acronyms}
+#+LATEX: \input{chapters/Symbols}
+#+end_src
+
+When Importing everything this way, we get a bunch of errors / warnings. As they
+are caused by the template itself I won't bother to fix them here. Commenting
+the ~#+LATEX~ lines out will compile a working document.
+
+#+LATEX: \input{chapters/Introduction}
+#+LATEX: \input{chapters/Examples}
+#+LATEX: \input{chapters/Tooling}
+
+#+LATEX: \input{chapters/Acronyms}
+#+LATEX: \input{chapters/Symbols}
+* Document Ending: Bibliography, Lists, Appendixes :ignore:
+\backmatter
+\cleardoublepage
+\printbibliography
+\cleardoublepage
+\listoffigures
+\cleardoublepage
+\listoftables
+\cleardoublepage
+
