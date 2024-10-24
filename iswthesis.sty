@@ -100,7 +100,7 @@
    { % use fontspec and OpenType fonts with utf8 engines
 	\RequirePackage{fontspec}
 	\defaultfontfeatures{Ligatures=TeX}
-	\setsansfont{Tex Gyre Heros}
+	\setsansfont{TeX Gyre Heros}
 	\setmainfont[Numbers=OldStyle]{TeX Gyre Pagella}
 	\setmonofont[Scale=0.85]{DejaVu Sans Mono} 
    }{
@@ -150,6 +150,10 @@
 \def\iswt@thesisType{\texttt{type}-Option invalid}
 \def\iswt@aimedDegree{}
 
+\ifthenelse{\equal{\iswt@type}{generic}}{
+	\def\iswt@thesisType{\IfLangGerman{}{}}
+	\def\iswt@aimedDegree{B.\,Sc.}
+}{}
 \ifthenelse{\equal{\iswt@type}{BA}}{
 	\def\iswt@thesisType{\IfLangGerman{Bachelorarbeit}{Bachelor's Thesis}}
 	\def\iswt@aimedDegree{B.\,Sc.}
